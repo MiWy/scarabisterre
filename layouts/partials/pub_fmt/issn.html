@@ -1,0 +1,8 @@
+{{- $ := .dot -}}
+{{- if isset $.Params "issn" }}
+<a href="https://portal.issn.org/resource/ISSN/{{ $.Params.issn | safeHTML }}" target="_blank"
+    class="badge badge-small doi">ISSN</a>
+{{- if eq .nomicrodata 0 }}
+<meta itemprop="sameAs" content="https://portal.issn.org/resource/ISSN/{{ $.Params.issn | safeHTML }}" />
+{{- end -}}
+{{- end -}}

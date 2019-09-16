@@ -1,0 +1,39 @@
+<div class="row">
+
+
+
+  <div class="hidden-sm hidden-xs" style="padding-left:2em;padding-right:2em;">
+    <div class="text-left">
+      <a href="{{ .RelPermalink }}"><strong>{{ .Title }}</strong></a>
+    </div>
+    <div class="text-left">
+      {{ partial "publication-metadata" . }}
+    </div>
+  </div>
+
+  <div class="hidden-md hidden-lg" style="padding-left:2em;padding-right:2em;">
+    <div>
+      <a href="{{ .RelPermalink }}"><strong>{{ .Title }}</strong></a>
+    </div>
+    <div>
+      {{ partial "publication-metadata" . }}
+    </div>
+  </div>
+
+
+
+  <div class="col-md-11" style="padding-left:2em;padding-right:2em;">
+    {{ if .Truncated }}
+    <p>
+      {{ .Summary }}..
+      <span style="white-space: nowrap;"><a href="{{ .RelPermalink }}">Read more <i
+            class="fa fa-arrow-right"></i></a></span>
+    </p>
+    {{ else }}
+    <p class="align-top">
+      {{ .Content }}
+    </p>
+    {{ end }}
+  </div>
+
+</div>

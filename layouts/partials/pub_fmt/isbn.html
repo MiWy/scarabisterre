@@ -1,0 +1,8 @@
+{{- $ := .dot -}}
+{{- if isset $.Params "isbn" }}
+<a href="https://duckduckgo.com/?q=isbn+{{ $.Params.isbn | safeHTML }}" target="_blank"
+    class="badge badge-small doi">ISBN</a>
+{{- if eq .nomicrodata 0 }}
+<meta itemprop="sameAs" content="https://duckduckgo.com/?q=isbn+{{ $.Params.isbn | safeHTML }}" />
+{{- end -}}
+{{- end -}}

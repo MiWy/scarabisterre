@@ -1,0 +1,50 @@
+<div class="publication-metadata">
+
+  <div>
+
+    <i class="fa-li {{ partial "pub-icon" . | chomp}} pub-icon"></i>
+    {{ partial "pub_tags" (dict "dot" . "author_initials" 1 "editor_initials" 1 "bib_with_year" 0 "isbn" 0 "doi" 0 "pdf" 0 "alt_url" 0 "url" 0 "amazon" 0 "preprint" 0 "ssrn" 0 "patent" 0 "in_press" 0 "meta_doi" 1 "meta_isbn" 1 "cutoff" 3) | chomp }}
+    <span>
+      {{- partial "pub_fmt/doi" (dict "dot" . "doi" 1 "nomicrodata" 1) | chomp -}}
+      {{- if isset $.Params "pub_url" -}}
+      {{- partial "pub_fmt/url" (dict "dot" . "url" 1 "nomicrodata" 1) | chomp -}}
+      {{- end -}}
+      {{- partial "pub_fmt/patent_link" (dict "dot" . "patent" 1) -}}
+      {{- partial "pub_fmt/amazon" (dict "dot" . "amazon" 1) | chomp -}}
+      {{- if isset $.Params "pdf" -}}
+      {{- partial "pub_fmt/pdf" (dict "dot" . "pdf" 1) | chomp -}}
+      {{- end -}}
+      {{- if isset $.Params "local_pdf" -}}
+      {{- partial "pub_fmt/local_pdf" (dict "dot" . "pdf" 1) | chomp -}}
+      {{- end -}}
+      {{- if isset $.Params "isbn" -}}
+      {{- partial "pub_fmt/isbn" (dict "dot" . "isbn" 1) | chomp -}}
+      {{- end -}}
+      {{- if isset $.Params "issn" -}}
+      {{- partial "pub_fmt/issn" (dict "dot" . "issn" 1) | chomp -}}
+      {{- end -}}
+      {{- partial "pub_fmt/ssrn" (dict "dot" . "ssrn" 1) | chomp -}}
+      {{- partial "pub_fmt/preprint_link" (dict "dot" . "preprint" 1) | chomp -}}
+      {{- partial "pub_fmt/inpress" (dict "dot" . "in_press" 1) | chomp -}}
+      {{- partial "pub_fmt/inreview" (dict "dot" . "in_review" 1) | chomp -}}
+    </span>
+
+
+  </div>
+
+
+  {{ if isset $.Params "tags" }}
+  {{ $tagsLen := len $.Params.tags }}
+  {{ if gt $tagsLen 0 }}
+  <span class="post-tags">
+    <span class="nowrap"><i class="fa fa-tags"></i>
+      {{ range $k, $v := $.Params.tags }}
+      <a class="post-tag"
+        href="{{ $.Site.BaseURL }}tags/{{ . | urlize | lower }}">{{ . }}</a>{{ if lt $k (sub $tagsLen 1) }},{{ if eq 0 $k }}</span>{{ end}}
+    {{ end }}
+    {{ end }}
+  </span>
+  {{ end }}
+  {{ end }}
+
+</div>

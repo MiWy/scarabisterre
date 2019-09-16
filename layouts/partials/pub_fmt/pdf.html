@@ -1,0 +1,9 @@
+{{- $ := .dot -}}
+{{- if isset $.Params "pdf" }}
+{{/* translate to lowercase because netlify converts static files to lower */}}
+<a href="{{ $.Params.pdf }}" target="_blank" class="badge badge-small pdf"><i
+                class="{{partial "fa_icon" (dict "Site" $.Site "pro_weight" "l" "weight" "r" "icon" "file-pdf")}}"></i>&nbsp;PDF</a>
+{{ end -}}
+{{- if eq .nomicrodata 0 }}
+<meta itemprop="sameAs" content="{{ $.Params.pub_url | safeHTML }}" />
+{{- end -}}

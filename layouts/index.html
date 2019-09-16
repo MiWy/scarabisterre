@@ -1,0 +1,145 @@
+{{ partial "header.html" . }}
+
+<!-- Page Content -->
+<div class="container main">
+
+  <!-- Row 1: Content -->
+  <div class="row">
+
+    <div class="col-md-8">
+      <h1 class="area-header">Recent posts</h1>
+      {{- range first 3 ((where .Site.RegularPages.ByDate "Section" "blog").Reverse) }}
+      {{ partial "post-summary" (dict "context" . "leftcols" "3" "rightcols" "8") }}
+      {{ end }}
+      <div class="row">
+        <div class="col-xs-12">
+          <a href="/blog/" class="more-link">MORE POSTS &#8811;</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div>
+        <h1 class="area-header">Ongoing classes</h1>
+        <ul class="list-unstyled">
+          {{- range where .Site.RegularPages.ByDate "Section" "teaching" }}
+          {{- $end_date := (time .Params.enddate) -}}
+          {{- if gt $end_date now.Unix -}}
+          <li>
+            <span class="pub-link">
+              <i class="fas fa-graduation-cap"></i> <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+            </span><span class="badge badge-small label-red ongoing">ongoing</span>
+          </li>
+          {{- end -}}
+          {{- end }}
+        </ul>
+        <a href="/publications/" class="more-link">MORE CLASSES &#8811;</a>
+      </div>
+
+      <div>
+        <h1 class="area-header">Recent papers</h1>
+        <ul class="list-unstyled">
+          {{- range first 3 ((where .Site.RegularPages.ByDate "Section" "publications").Reverse) }}
+          <li style="padding-bottom:0.5em">
+            <span class="pub-link">
+              <i class=""></i> <a href="{{ .RelPermalink }}"><strong>{{ .Title }}</strong></a>
+
+            </span>
+            {{ partial "publication-metadata-index" . }}
+          </li>
+          {{- end }}
+        </ul>
+        <a href="/publications/" class="more-link">MORE PAPERS &#8811;</a>
+      </div>
+
+      <div>
+        {{ partial "resources.html" }}
+      </div>
+
+      <div class="row">
+        {{- range $index, $page := where .Data.Pages "Type" "extras" }}
+        <div class="col-md-12 hanging-no-bullets">
+          <h1 class="area-header">{{ $page.Params.heading | markdownify }}</h1>
+          {{ $page.Content | markdownify }}
+        </div>
+        {{- end }}
+      </div>
+    </div>
+
+  </div>
+
+  <hr class="hidden-sm hidden-xs">
+
+  <!-- Row #3: About -->
+  <div class="row">
+
+    <div class="col-md-4">
+      <h1 class="area-header">About</h1>
+      <p>
+        {{ partial "about.html" . }}
+      </p>
+      <p class="small">
+        Powered by <a href="https://gohugo.io">Hugo</a>, using a remix of
+        <a href="https://github.com/jonathan-g/hugo-finisterre">Finisterre</a> and <a
+          href="https://github.com/jweisber/scarab">Scarab</a> themes.
+        &nbsp;
+        &copy; Michał Wyrwa 2018{{ if gt now.Year 2017 }}&ndash;{{ now.Format "2006" }}{{ end }}.
+        &nbsp;
+      </p>
+    </div>
+
+
+
+    <div class="col-md-4 col-md-offset-4 details">
+      <h2 class="hidden-sm hidden-xs">&nbsp;</h2>
+      <div class="hidden-lg hidden-md">&nbsp;</div>
+      <ul class="fa-ul">
+
+        {{- if .Site.Params.email }}
+        <li><i class="fa-li fa fa-envelope"></i>
+          <a href="mailto:{{ .Site.Params.email }}">
+            {{ .Site.Params.email }}
+          </a>
+        </li>
+        {{- end }}
+        {{- if .Site.Params.github }}
+        <li><i class="fab fa-li fa-github"></i>
+          <a href="http://www.github.com/{{ .Site.Params.github }}">
+            {{ .Site.Params.github }}
+          </a>
+        </li>
+        {{- end }}
+        {{- if .Site.Params.orcid }}
+        <li><i class="fa-li ai ai-orcid fa-lg"></i>
+          <a href="http://www.github.com/{{ .Site.Params.orcid }}">
+            {{ .Site.Params.orcid }}
+          </a>
+        </li>
+        {{- end }}
+        {{- if .Site.Params.researchgate }}
+        <li><i class="fa-li ai ai-researchgate fa-lg"></i>
+          <a href="https://www.researchgate.net/profile/{{ .Site.Params.researchgate }}">
+            {{ .Site.Params.researchgate }}
+          </a>
+        </li>
+        {{- end }}
+        {{- if .Site.Params.scholar }}
+        <li><i class="fa-li ai ai-google-scholar fa-lg"></i>
+          <a href="https://scholar.google.com/citations?user={{ .Site.Params.scholar }}">
+            Google Scholar
+          </a>
+        </li>
+        {{- end }}
+        {{- if .Site.Params.address }}
+        <li><i class="fa-li fa fa-university"></i>
+          {{ .Site.Params.address }}
+        </li>
+        {{- end }}
+      </ul>
+    </div>
+
+  </div>
+
+</div>
+
+{{ partial "footer.html" . }}

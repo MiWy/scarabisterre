@@ -1,0 +1,31 @@
+{{ partial "header.html" . }}
+
+  <div class="container">
+
+    <div class="row">
+      <div class="col-md-6 col-md-offset-4">
+        <p class="epigraph">
+          {{ .Site.Params.blogepigraph | safeHTML }}
+        </p>
+      </div>
+    </div>
+
+    <div class="row">
+
+      <div class="col-md-10 col-md-offset-1">
+      </div>
+
+      <div class="col-md-10 col-md-offset-1">
+        {{- range first 10 .Data.Pages }}
+        <div class="section-item">
+          <a href="{{ .Permalink }}">{{ partial "post-summary" (dict "context" . "leftcols" "4" "rightcols" "7") }}</a>
+        </div>
+        {{- end }}
+        <div>
+          {{ partial "back-link" }}
+        </div>
+      </div>
+      
+    </div>
+
+{{ partial "footer.html" . }}

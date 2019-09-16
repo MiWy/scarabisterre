@@ -1,0 +1,34 @@
+{{ partial "header.html" . }}
+
+<!-- Page Content -->
+<div class="container main">
+
+    <!-- Row -->
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+
+            <div>
+                <h2 class="publication-title">{{ .Title }}
+
+                    {{- $end_date := (time .Params.enddate) -}}
+                    {{- if gt $end_date now.Unix -}}
+                    <span class="badge badge-small label-red ongoing"> ongoing</span>
+                    {{ else }}
+                    <span class="badge badge-small label-green finished"> finished</span>
+                    {{- end -}}</h2>
+
+            </div>
+
+
+            <p>
+                {{ .Content }}
+            </p>
+
+            <div>
+                {{ partial "back-link" }}
+            </div>
+        </div>
+    </div>
+    <!-- /.row -->
+</div>
+{{ partial "footer.html" . }}
